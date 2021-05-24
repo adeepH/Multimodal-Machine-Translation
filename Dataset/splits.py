@@ -1,14 +1,20 @@
-TRAIN_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/train_images.txt'
-IMAGE_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/flickr30k_images/'
-VAL_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/val_images.txt'
-TEST_2016_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/test_2016_images.txt'
-TEST_2017_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/test_2017_images.txt'
+import os
+import shutil
+from shutil import copyfile
+# change the respective paths to get the dataset splits
+TRAIN_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/train_images.txt' # Add the path to the training splits file
+IMAGE_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/flickr30k_images/'  # Add the path of Flickr 30K Images
+VAL_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/val_images.txt' #Add the path of the validation splits
+TEST_2016_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/test_2016_images.txt' # Add the path of the test_2016 split
+TEST_2017_PATH = '/content/drive/MyDrive/Multimodal_Machine_Translation/Image_Splits/image_splits/test_2017_images.txt' # Add the path of the test_2017 split
 
+#create folders for train, validation, test_2016, and 2017 splits
 train_split = '/content/drive/MyDrive/Multimodal_Machine_Translation/Train/'
 val_split = '/content/drive/MyDrive/Multimodal_Machine_Translation/Validation/'
 test_2016 = '/content/drive/MyDrive/Multimodal_Machine_Translation/Test_016/'
 test_2017 = '/content/drive/MyDrive/Multimodal_Machine_Translation/Test_017/'
 
+# Create directories if not previously present
 if not os.path.exists(train_split):
     os.mkdir(train_split)
 
@@ -21,6 +27,7 @@ if not os.path.exists(test_2016):
 if not os.path.exists(test_2017):
     os.mkdir(test_2017)
 
+# Open the text file fpr train, validation, test_2016, and test 2017
 f = open(TRAIN_PATH, 'r')
 train_files = f.read().split()
 train_files = list(train_files)
@@ -38,11 +45,11 @@ test_2017 = f.read().split()
 test_2017 = list(test_2017)
 
 # Path to the images folder
-# Image_folder = [i for i in os.listdir(IMAGE_PATH) if os.path.isfile(os.path.join(IMAGE_PATH,i))]
-# train_folder = [i for i in Image_folder for j in train_files if j in i]
-# val_folder = [i for i in Image_folder for j in val_files if j in i]
-# test_folder_2016 = [i for i in Image_folder for j in test_2016 if j in i]
-# test_folder_2017 = [i for i in Image_folder for j in test_2017 if j in i]
+Image_folder = [i for i in os.listdir(IMAGE_PATH) if os.path.isfile(os.path.join(IMAGE_PATH,i))]
+train_folder = [i for i in Image_folder for j in train_files if j in i]
+val_folder = [i for i in Image_folder for j in val_files if j in i]
+test_folder_2016 = [i for i in Image_folder for j in test_2016 if j in i]
+test_folder_2017 = [i for i in Image_folder for j in test_2017 if j in i]
 
 # Comparing the lists before moving the splits
 train_folder = set(train_folder)
